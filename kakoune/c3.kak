@@ -67,7 +67,7 @@ evaluate-commands %sh{
 	addhl shared/c3/${region}/code/type       regex '\\b(?:$(join "${types}" '|'))\\b' 0:type
 	addhl shared/c3/${region}/code/operator   regex '(?:\\.|>|<|=|\\+|-|\\*|/|%|&|\\^|\\||!|:|\\?|;|,|@)=?' 0:default
 	addhl shared/c3/${region}/code/num        regex '(?<=[^A-Za-z0-9])[+-]?(?:0(?:[xX][0-9a-fA-F](?:_|[0-9a-fA-F])*|[oO][0-7](?:_|[0-7])*|[bB][10](?:_|[10])*)|[0-9](?:_?[0-9])*(?:_?[eE][+-]?[0-9]+)?)(?:i8|i16|i32|i64|i128|u8|u16|u32|u|u64|u128|f|f32|f64)?\b' 0:value
-	addhl shared/c3/${region}/code/const-and-struct   regex '\\\$?\\b[A-Z]\\w*\\b' 0:value
+	addhl shared/c3/${region}/code/const-and-struct   regex '\\\$?\\b_*[A-Z]\\w*\\b' 0:value
 
 	addhl shared/c3/${region}/comment-line      region '//' '$' fill comment
 	addhl shared/c3/${region}/comment-block     region /\\*  \\*/ fill comment
@@ -90,8 +90,8 @@ evaluate-commands %sh{
     printf %s "
 	addhl shared/c3/global/code/module-statement-start   regex '(?:module|import)\\s*(\\w+)' 1:module
 	addhl shared/c3/global/code/module-statement-cont   regex '::(\\w*).*?(?:(?=::)|(?=;))' 1:module
-	addhl shared/c3/global/code/function-statement   regex '(?:(?:fn|macro) +(?:[A-Za-z0-9_\\[\\]]*\\**!? +)?(?:[^ \\t]+\\.)?)(@?[a-z]\\w+(?=\\())' 1:function
 	addhl shared/c3/global/code/attribute regex '[@][a-z]+' 0:attribute
+	addhl shared/c3/global/code/function-statement   regex '(?:(?:fn|macro) +(?:[A-Za-z0-9_\\[\\]]*\\**!? +)?(?:[^ \\t]+\\.)?)(@?[a-z]\\w+(?=\\())' 1:function
     "
 }
 
