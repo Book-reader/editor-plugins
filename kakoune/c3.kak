@@ -70,7 +70,7 @@ evaluate-commands %sh{
 	addhl shared/c3/${region}/code/const-and-struct   regex '\\\$?\\b_*[A-Z]\\w*\\b' 0:value
 
 	addhl shared/c3/${region}/comment-line      region '//' '$' fill comment
-	addhl shared/c3/${region}/comment-block     region /\\*  \\*/ fill comment
+	addhl shared/c3/${region}/comment-block     region -recurse '/\\*' /\\*  \\*/ fill comment
 	addhl shared/c3/${region}/comment-doc       region <\\* \\*> fill comment
 	addhl shared/c3/${region}/double-string     region 'c?\"' (?<!\\\\)(\\\\\\\\)*\" fill string
 	addhl shared/c3/${region}/single-string     region \"'\" (?<!\\\\)(\\\\\\\\)*' fill string
