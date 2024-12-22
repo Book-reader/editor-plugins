@@ -91,7 +91,7 @@ evaluate-commands %sh{
 	addhl shared/c3/global/code/module-statement-start   regex '(?:module|import)\\s*(\\w+)' 1:module
 	addhl shared/c3/global/code/module-statement-cont   regex '::(\\w*).*?(?:(?=::)|(?=;))' 1:module # TODO: this does not take into account \"import std::io, std::math\"
 	addhl shared/c3/global/code/attribute regex '[@][a-z]+' 0:attribute
-	addhl shared/c3/global/code/function-statement   regex '(?:(?:fn|macro) +(?:[A-Za-z0-9_\\[\\]]*\\**!? +)?(?:[^ \\t]+\\.)?)(@?[a-z]\\w+(?=\\())' 1:function
+	addhl shared/c3/global/code/function-statement   regex '(?:(?:fn|macro) +(?:[A-Za-z0-9_\\[\\]]*\\**!? +)?(?:[^ \\t]+\\.)?)(@?[a-z]\\w+(?=\\())' 1:function # TODO: this does not take into account generics like 'fn List(<int>) name()'
     "
 }
 
