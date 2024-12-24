@@ -31,6 +31,8 @@ addhl shared/c3/single-string     region "'" (?<!\\)(\\\\)*' fill string
 addhl shared/c3/compiler-builtin  region '\$\$\w' '\b' fill keyword
 
 # The order that the highlighters are defined is VERY important as the last one defined has priority
+
+# TODO: handle if/loop labels
 evaluate-commands %sh{
     keywords='
 	asm assert bitstruct break case catch const continue
@@ -38,7 +40,7 @@ evaluate-commands %sh{
 	false fault for foreach foreach_r fn tlocal if
 	inline import macro module nextcase null return static
 	struct switch true try union var while
-    '
+'
 
     builtins='
 	switch default case if typeof else sizeof for
