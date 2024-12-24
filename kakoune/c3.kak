@@ -33,6 +33,7 @@ addhl shared/c3/compiler-builtin  region '\$\$\w' '\b' fill keyword
 # The order that the highlighters are defined is VERY important as the last one defined has priority
 
 # TODO: handle if/loop labels
+# TODO: handle functions starting with '_'
 evaluate-commands %sh{
     keywords='
 	asm assert bitstruct break case catch const continue
