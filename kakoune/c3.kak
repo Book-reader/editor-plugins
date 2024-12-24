@@ -34,6 +34,7 @@ addhl shared/c3/compiler-builtin  region '\$\$\w' '\b' fill keyword
 
 # TODO: handle if/loop labels
 # TODO: handle functions starting with '_'
+# TODO: give keywords priority over functions, without highlighting something like `if_()` as a keyword but highlighting 'if()' as a keyword
 evaluate-commands %sh{
     keywords='
 	asm assert bitstruct break case catch const continue
