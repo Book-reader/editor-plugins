@@ -37,6 +37,7 @@ addhl shared/c3/compiler-builtin  region '\$\$\w' '\b' fill keyword
 # TODO: give keywords priority over functions, without highlighting something like `if_()` as a keyword but highlighting 'if()' as a keyword
 # TODO: handle spaces before functions 'func_name (func_args)'
 # TOOD: fix highlighting of `fn void a()`
+# TODO: don't highlight 1 in a_1 as number
 evaluate-commands %sh{
     keywords='
 	asm assert bitstruct break case catch const continue
