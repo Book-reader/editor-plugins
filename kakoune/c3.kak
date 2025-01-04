@@ -44,7 +44,7 @@ evaluate-commands %sh{
 	def default defer distinct do else enum extern
 	false fault for foreach foreach_r fn tlocal if
 	inline import macro module nextcase null return static
-	struct switch true try union var while
+	struct interface switch true try union var while
 '
 
     builtins='
