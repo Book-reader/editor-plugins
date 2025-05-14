@@ -17,10 +17,6 @@ addhl shared/c3/code              default-region group
 
 addhl shared/c3/comment-line      region '//' '$' fill comment
 addhl shared/c3/comment-block     region -recurse '/\*' /\*  \*/ fill comment
-addhl shared/c3/comment-doc       region <\*(?!>) \*> fill comment
-addhl shared/c3/double-string     region '"' (?<!\\)(\\\\)*" fill string
-addhl shared/c3/single-string     region "'" (?<!\\)(\\\\)*' fill string
-addhl shared/c3/literal-string    region "`" (?<!\\)(\\\\)*` fill string
 
 addhl shared/c3/code/module-decl  regex '(module|import)\s*[a-z0-9_]+(?:::[a-z0-9_]+)*(?:(?:,\s*[a-z0-9_]+(?:::[a-z0-9_]+)*)+|\s*(\{(?:\s*_*[A-Z][A-z0-9_]*,?\s*)+\}))?\s*(@\w+\s*)*(?=;)' 0:module 1:Default 2:Default
 addhl shared/c3/code/num          regex '\b[+-]?(?:0(?:[xX][0-9a-fA-F](?:_*[0-9a-fA-F])*|[oO][0-7](?:_*[0-7])*|[bB][10](?:_*[10])*)|[0-9](?:_*[0-9])*(?:_*[eE][+-]?[0-9]+)?)(?:[iIuU](?:8|16|32|64|128)?|[fF](?:32|64)?|[uU][lL])?\b' 0:value
@@ -31,7 +27,24 @@ addhl shared/c3/code/module       regex '([a-z0-9_]+)(?=::)' 1:module
 # code/module-decl highlights '::' as modules, but they should not be highlighted
 addhl shared/c3/code/namespace    regex '::' 0:Default
 
+addhl shared/c3/doc                     region <\*(?!>) \*> regions
+addhl shared/c3/doc/                    default-region fill comment
+addhl shared/c3/doc/code                region '@' '\n' regions
+addhl shared/c3/doc/code/annotation     region '@(?:param|require|ensure|return|pure|deprecated)' '\s' fill attribute
+addhl shared/c3/doc/code/               default-region ref c3/code
+addhl shared/c3/doc/code/param          region '\[&?(?:in|out|inout)' '\]' fill meta
+
 evaluate-commands %sh{
+
+	regions="c3  c3/doc/code"
+	for region in ${regions}; do
+		printf %s "
+			addhl shared/${region}/single-string  region  \"'\" (?<!\\\\)(\\\\\\\\)*' fill string
+			addhl shared/${region}/double-string  region  \\\" (?<!\\\\)(\\\\\\\\)*\" fill string
+			addhl shared/${region}/literal-string region \"\`\" (?<!\\\\)(\\\\\\\\)*\` fill string
+		"
+	done
+
 	# generated using "c3c --list-{} | string join ' '" in fish
 	keywords='alias assert asm attrdef bitstruct break case catch const continue default defer do else enum extern false faultdef for foreach foreach_r fn tlocal if inline import macro module nextcase null interface return static struct switch true try typedef union var while'
 	attributes='@align @benchmark @bigendian @builtin @callconv @compact @const @deprecated @dynamic @export @extern @finalizer @format @if @inline @init @link @littleendian @local @maydiscard @naked @noalias @nodiscard @noinit @noinline @nopadding @norecurse @noreturn @nosanitize @nostrip @obfuscate @operator @operator_r @operator_s @optional @overlap @packed @private @public @pure @reflect @safemacro @section @tag @test @unused @used @wasm @weak @winmain'
